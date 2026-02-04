@@ -1,0 +1,26 @@
+#!/bin/bash
+# Volume control with SwayOSD feedback
+# Usage: volume-control [up|down|mute]
+
+set -e
+
+STEP=5
+
+case "${1:-}" in
+    up)
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%+
+        swayosd-client --output-volume raise 2>/dev/null || true
+        ;;
+    down)
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ ${STEP}%-
+        swayosd-client --output-volume lower 2>/dev/null || true
+        ;;
+    mute)
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        swayosd-client --output-volume mute-toggle 2>/dev/null || true
+        ;;
+    *)
+        echo "Usage: volume-control [up|down|mute]"
+        exit 1
+        ;;
+esac

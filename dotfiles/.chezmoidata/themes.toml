@@ -1,0 +1,182 @@
+# Theme color palettes
+# Select active theme in .chezmoi.toml.tmpl via [data.theme.name]
+
+[themes.catppuccin-mocha]
+# Base colors
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+# Surface colors
+surface0 = "#313244"
+surface1 = "#45475a"
+surface2 = "#585b70"
+# Text colors
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+# Overlay colors
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+# Accent colors
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+# Stripped versions (no #) for rgba() usage
+base_strip = "1e1e2e"
+surface0_strip = "313244"
+text_strip = "cdd6f4"
+overlay0_strip = "6c7086"
+red_strip = "f38ba8"
+blue_strip = "89b4fa"
+mauve_strip = "cba6f7"
+# RGB values for rgba() usage
+base_rgb = "30, 30, 46"
+text_rgb = "205, 214, 244"
+blue_rgb = "137, 180, 250"
+
+[themes.nord]
+# Base colors (Polar Night)
+base = "#2e3440"
+mantle = "#2e3440"
+crust = "#2e3440"
+# Surface colors
+surface0 = "#3b4252"
+surface1 = "#434c5e"
+surface2 = "#4c566a"
+# Text colors (Snow Storm)
+text = "#eceff4"
+subtext1 = "#e5e9f0"
+subtext0 = "#d8dee9"
+# Overlay colors
+overlay2 = "#4c566a"
+overlay1 = "#4c566a"
+overlay0 = "#4c566a"
+# Accent colors (Frost + Aurora)
+rosewater = "#d8dee9"
+flamingo = "#d8dee9"
+pink = "#b48ead"
+mauve = "#b48ead"
+red = "#bf616a"
+maroon = "#bf616a"
+peach = "#d08770"
+yellow = "#ebcb8b"
+green = "#a3be8c"
+teal = "#8fbcbb"
+sky = "#88c0d0"
+sapphire = "#81a1c1"
+blue = "#81a1c1"
+lavender = "#5e81ac"
+# Stripped versions
+base_strip = "2e3440"
+surface0_strip = "3b4252"
+text_strip = "eceff4"
+overlay0_strip = "4c566a"
+red_strip = "bf616a"
+blue_strip = "81a1c1"
+mauve_strip = "b48ead"
+# RGB values
+base_rgb = "46, 52, 64"
+text_rgb = "236, 239, 244"
+blue_rgb = "129, 161, 193"
+
+[themes.gruvbox]
+# Base colors
+base = "#282828"
+mantle = "#1d2021"
+crust = "#1d2021"
+# Surface colors
+surface0 = "#3c3836"
+surface1 = "#504945"
+surface2 = "#665c54"
+# Text colors
+text = "#ebdbb2"
+subtext1 = "#d5c4a1"
+subtext0 = "#bdae93"
+# Overlay colors
+overlay2 = "#a89984"
+overlay1 = "#928374"
+overlay0 = "#665c54"
+# Accent colors
+rosewater = "#d5c4a1"
+flamingo = "#d5c4a1"
+pink = "#d3869b"
+mauve = "#d3869b"
+red = "#fb4934"
+maroon = "#cc241d"
+peach = "#fe8019"
+yellow = "#fabd2f"
+green = "#b8bb26"
+teal = "#8ec07c"
+sky = "#83a598"
+sapphire = "#83a598"
+blue = "#83a598"
+lavender = "#458588"
+# Stripped versions
+base_strip = "282828"
+surface0_strip = "3c3836"
+text_strip = "ebdbb2"
+overlay0_strip = "665c54"
+red_strip = "fb4934"
+blue_strip = "83a598"
+mauve_strip = "d3869b"
+# RGB values
+base_rgb = "40, 40, 40"
+text_rgb = "235, 219, 178"
+blue_rgb = "131, 165, 152"
+
+[themes.tokyo-night]
+# Base colors
+base = "#1a1b26"
+mantle = "#16161e"
+crust = "#16161e"
+# Surface colors
+surface0 = "#24283b"
+surface1 = "#414868"
+surface2 = "#565f89"
+# Text colors
+text = "#c0caf5"
+subtext1 = "#a9b1d6"
+subtext0 = "#9aa5ce"
+# Overlay colors
+overlay2 = "#787c99"
+overlay1 = "#565f89"
+overlay0 = "#414868"
+# Accent colors
+rosewater = "#f7768e"
+flamingo = "#f7768e"
+pink = "#bb9af7"
+mauve = "#bb9af7"
+red = "#f7768e"
+maroon = "#db4b4b"
+peach = "#ff9e64"
+yellow = "#e0af68"
+green = "#9ece6a"
+teal = "#73daca"
+sky = "#7dcfff"
+sapphire = "#2ac3de"
+blue = "#7aa2f7"
+lavender = "#7aa2f7"
+# Stripped versions
+base_strip = "1a1b26"
+surface0_strip = "24283b"
+text_strip = "c0caf5"
+overlay0_strip = "414868"
+red_strip = "f7768e"
+blue_strip = "7aa2f7"
+mauve_strip = "bb9af7"
+# RGB values
+base_rgb = "26, 27, 38"
+text_rgb = "192, 202, 245"
+blue_rgb = "122, 162, 247"

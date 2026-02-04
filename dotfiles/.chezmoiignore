@@ -1,5 +1,14 @@
 {{- if eq .chezmoi.os "darwin" }}
+# Linux/Hyprland only configs
 dot_config/hypr/**
 dot_config/waybar/**
-dot_config/wofi/**
+dot_config/mako/**
+dot_config/walker/**
+dot_config/swayosd/**
+
+# Linux-only utility scripts
+dot_local/bin/executable_screenshot
+dot_local/bin/executable_screenrecord
+dot_local/bin/executable_volume-control
+dot_local/bin/executable_brightness-control
 {{- end }}

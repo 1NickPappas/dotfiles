@@ -1,0 +1,43 @@
+{{- $colors := index .themes .theme.name -}}
+/* SwayOSD {{ .theme.name }} theme */
+
+window {
+    background-color: rgba({{ $colors.base_rgb }}, 0.9);
+    border-radius: 12px;
+    border: 2px solid {{ $colors.surface0 }};
+    padding: 12px 20px;
+}
+
+#container {
+    margin: 10px;
+}
+
+image {
+    color: {{ $colors.blue }};
+    margin-right: 10px;
+}
+
+progressbar {
+    min-height: 8px;
+    border-radius: 4px;
+    background-color: {{ $colors.surface0 }};
+}
+
+progressbar progress {
+    background-color: {{ $colors.blue }};
+    border-radius: 4px;
+}
+
+progressbar.brightness progress {
+    background-color: {{ $colors.yellow }};
+}
+
+progressbar.muted progress {
+    background-color: {{ $colors.overlay0 }};
+}
+
+label {
+    color: {{ $colors.text }};
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+}

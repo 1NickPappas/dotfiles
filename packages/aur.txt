@@ -1,2 +1,8 @@
 # AUR packages
 visual-studio-code-bin
+
+# App launcher (replaces wofi)
+walker-bin
+
+# Volume/brightness OSD
+swayosd-git

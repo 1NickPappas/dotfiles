@@ -1,0 +1,85 @@
+#!/bin/bash
+# Screen recording utility for Hyprland
+# Usage: screenrecord [start|stop|toggle]
+# Uses wf-recorder to capture screen
+
+set -e
+
+RECORDING_PID_FILE="/tmp/screenrecord.pid"
+RECORDING_DIR="$HOME/Videos/Recordings"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+FILENAME="recording_$TIMESTAMP.mp4"
+
+# Create recording directory if it doesn't exist
+mkdir -p "$RECORDING_DIR"
+
+is_recording() {
+    [[ -f "$RECORDING_PID_FILE" ]] && kill -0 "$(cat "$RECORDING_PID_FILE")" 2>/dev/null
+}
+
+start_recording() {
+    if is_recording; then
+        notify-send "Screen Recording" "Already recording!" -u warning
+        exit 1
+    fi
+
+    # Let user select region or use full screen
+    echo "Select area to record (or press Escape for full screen)..."
+    GEOMETRY=$(slurp 2>/dev/null) || GEOMETRY=""
+
+    if [[ -n "$GEOMETRY" ]]; then
+        wf-recorder -g "$GEOMETRY" -f "$RECORDING_DIR/$FILENAME" &
+    else
+        wf-recorder -f "$RECORDING_DIR/$FILENAME" &
+    fi
+
+    echo $! > "$RECORDING_PID_FILE"
+    notify-send "Screen Recording" "Recording started..." -u low
+}
+
+stop_recording() {
+    if ! is_recording; then
+        notify-send "Screen Recording" "Not currently recording" -u warning
+        exit 1
+    fi
+
+    kill -INT "$(cat "$RECORDING_PID_FILE")" 2>/dev/null || true
+    rm -f "$RECORDING_PID_FILE"
+
+    # Find the most recent recording
+    LATEST=$(ls -t "$RECORDING_DIR"/recording_*.mp4 2>/dev/null | head -1)
+    if [[ -n "$LATEST" ]]; then
+        notify-send "Screen Recording" "Saved to $(basename "$LATEST")"
+    else
+        notify-send "Screen Recording" "Recording stopped"
+    fi
+}
+
+toggle_recording() {
+    if is_recording; then
+        stop_recording
+    else
+        start_recording
+    fi
+}
+
+case "${1:-toggle}" in
+    start)
+        start_recording
+        ;;
+    stop)
+        stop_recording
+        ;;
+    toggle)
+        toggle_recording
+        ;;
+    *)
+        echo "Usage: screenrecord [start|stop|toggle]"
+        echo ""
+        echo "Commands:"
+        echo "  start  - Start a new recording"
+        echo "  stop   - Stop current recording"
+        echo "  toggle - Toggle recording on/off (default)"
+        exit 1
+        ;;
+esac

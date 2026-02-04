@@ -1,0 +1,89 @@
+#!/bin/bash
+# Theme switcher for dotfiles setup
+# Usage: theme-set <theme-name>
+# Available themes: catppuccin-mocha, nord, gruvbox, tokyo-night
+
+set -e
+
+AVAILABLE_THEMES=("catppuccin-mocha" "nord" "gruvbox" "tokyo-night")
+THEME="${1:-}"
+CHEZMOI_CONFIG="$HOME/.config/chezmoi/chezmoi.toml"
+
+# Show usage if no theme provided
+if [[ -z "$THEME" ]]; then
+    echo "Usage: theme-set <theme-name>"
+    echo ""
+    echo "Available themes:"
+    for t in "${AVAILABLE_THEMES[@]}"; do
+        echo "  - $t"
+    done
+    exit 1
+fi
+
+# Validate theme name
+valid=false
+for t in "${AVAILABLE_THEMES[@]}"; do
+    if [[ "$t" == "$THEME" ]]; then
+        valid=true
+        break
+    fi
+done
+
+if [[ "$valid" != "true" ]]; then
+    echo "Error: Unknown theme '$THEME'"
+    echo ""
+    echo "Available themes:"
+    for t in "${AVAILABLE_THEMES[@]}"; do
+        echo "  - $t"
+    done
+    exit 1
+fi
+
+echo "Switching to theme: $THEME"
+
+# Update theme name in chezmoi config
+if [[ -f "$CHEZMOI_CONFIG" ]]; then
+    # Use portable sed syntax (works on both macOS and Linux)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "s/name = \".*\"/name = \"$THEME\"/" "$CHEZMOI_CONFIG"
+    else
+        sed -i "s/name = \".*\"/name = \"$THEME\"/" "$CHEZMOI_CONFIG"
+    fi
+else
+    mkdir -p "$(dirname "$CHEZMOI_CONFIG")"
+    cat > "$CHEZMOI_CONFIG" << EOF
+[data.theme]
+    name = "$THEME"
+EOF
+fi
+
+# Re-apply dotfiles
+echo "Applying chezmoi..."
+chezmoi apply
+
+# Reload running applications (platform-specific)
+echo "Reloading applications..."
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS - restart Ghostty if running
+    if pgrep -x "Ghostty" &> /dev/null; then
+        echo "Note: Restart Ghostty to apply theme changes"
+    fi
+else
+    # Linux - reload Hyprland and related apps
+    if command -v hyprctl &> /dev/null; then
+        hyprctl reload 2>/dev/null || true
+    fi
+
+    if pgrep -x waybar &> /dev/null; then
+        pkill -SIGUSR2 waybar 2>/dev/null || true
+    fi
+
+    if command -v makoctl &> /dev/null; then
+        makoctl reload 2>/dev/null || true
+    fi
+
+    notify-send "Theme Changed" "Now using $THEME" 2>/dev/null || true
+fi
+
+echo "Theme switched to: $THEME"

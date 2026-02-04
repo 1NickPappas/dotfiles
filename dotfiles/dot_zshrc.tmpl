@@ -1,3 +1,4 @@
+{{- $colors := index .themes .theme.name -}}
 # ─────────────────────────────────────────────────────────────
 # History Configuration
 # ─────────────────────────────────────────────────────────────
@@ -19,14 +20,13 @@ setopt COMPLETE_IN_WORD       # Complete from both ends of cursor
 setopt INTERACTIVE_COMMENTS   # Allow comments in interactive shell
 
 # ─────────────────────────────────────────────────────────────
-# Theme Colors (Catppuccin Mocha - change these for other themes)
+# Theme Colors ({{ .theme.name }})
 # ─────────────────────────────────────────────────────────────
-# See: https://github.com/catppuccin/catppuccin
-THEME_OVERLAY0="#6c7086"   # Autosuggestion color (subtle gray)
-THEME_SURFACE0="#313244"   # Background accent
-THEME_RED="#f38ba8"        # Errors
-THEME_GREEN="#a6e3a1"      # Success
-THEME_BLUE="#89b4fa"       # Info
+THEME_OVERLAY0="{{ $colors.overlay0 }}"   # Autosuggestion color (subtle gray)
+THEME_SURFACE0="{{ $colors.surface0 }}"   # Background accent
+THEME_RED="{{ $colors.red }}"             # Errors
+THEME_GREEN="{{ $colors.green }}"         # Success
+THEME_BLUE="{{ $colors.blue }}"           # Info
 
 # ─────────────────────────────────────────────────────────────
 # Environment
@@ -34,12 +34,12 @@ THEME_BLUE="#89b4fa"       # Info
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+# Add local bin to PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS specific
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ else -}}
-# Linux specific
-export PATH="$HOME/.local/bin:$PATH"
 {{ end -}}
 
 # ─────────────────────────────────────────────────────────────
@@ -131,3 +131,4 @@ alias cat='bat'
 alias vim='nvim'
 alias grep='rg'
 alias find='fd'
+alias lg='lazygit'

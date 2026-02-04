@@ -1,0 +1,62 @@
+{{- $colors := index .themes .theme.name -}}
+/* Walker {{ .theme.name }} theme */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+}
+
+#window {
+    background-color: {{ $colors.base }};
+    border: 2px solid {{ $colors.surface0 }};
+    border-radius: 12px;
+}
+
+#box {
+    padding: 10px;
+}
+
+#input {
+    background-color: {{ $colors.surface0 }};
+    color: {{ $colors.text }};
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+#input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px {{ $colors.blue }};
+}
+
+#list {
+    background-color: transparent;
+}
+
+#item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: {{ $colors.text }};
+}
+
+#item:selected {
+    background-color: {{ $colors.surface1 }};
+}
+
+#item:hover {
+    background-color: {{ $colors.surface0 }};
+}
+
+#icon {
+    margin-right: 10px;
+}
+
+#label {
+    color: {{ $colors.text }};
+}
+
+#sub {
+    color: {{ $colors.subtext0 }};
+    font-size: 12px;
+}

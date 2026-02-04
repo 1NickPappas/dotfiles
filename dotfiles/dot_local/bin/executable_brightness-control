@@ -1,0 +1,22 @@
+#!/bin/bash
+# Brightness control with SwayOSD feedback
+# Usage: brightness-control [up|down]
+
+set -e
+
+STEP=5
+
+case "${1:-}" in
+    up)
+        brightnessctl set +${STEP}%
+        swayosd-client --brightness raise 2>/dev/null || true
+        ;;
+    down)
+        brightnessctl set ${STEP}%-
+        swayosd-client --brightness lower 2>/dev/null || true
+        ;;
+    *)
+        echo "Usage: brightness-control [up|down]"
+        exit 1
+        ;;
+esac

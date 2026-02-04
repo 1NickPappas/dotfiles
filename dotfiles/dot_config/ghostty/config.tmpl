@@ -1,3 +1,4 @@
+{{- $colors := index .themes .theme.name -}}
 # Ghostty terminal config
 font-family = JetBrainsMono Nerd Font
 font-size = 14
@@ -6,6 +7,31 @@ font-size = 14
 macos-option-as-alt = true
 {{ end -}}
 
-# Theme (Catppuccin Mocha)
-background = #1e1e2e
-foreground = #cdd6f4
+# Theme ({{ .theme.name }})
+background = {{ $colors.base }}
+foreground = {{ $colors.text }}
+
+# Cursor
+cursor-color = {{ $colors.text }}
+
+# Selection
+selection-background = {{ $colors.surface1 }}
+selection-foreground = {{ $colors.text }}
+
+# Terminal colors
+palette = 0={{ $colors.surface1 }}
+palette = 1={{ $colors.red }}
+palette = 2={{ $colors.green }}
+palette = 3={{ $colors.yellow }}
+palette = 4={{ $colors.blue }}
+palette = 5={{ $colors.pink }}
+palette = 6={{ $colors.teal }}
+palette = 7={{ $colors.subtext1 }}
+palette = 8={{ $colors.surface2 }}
+palette = 9={{ $colors.red }}
+palette = 10={{ $colors.green }}
+palette = 11={{ $colors.yellow }}
+palette = 12={{ $colors.blue }}
+palette = 13={{ $colors.pink }}
+palette = 14={{ $colors.teal }}
+palette = 15={{ $colors.text }}

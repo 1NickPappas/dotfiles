@@ -1,0 +1,46 @@
+#!/bin/bash
+# Screenshot utility for Hyprland
+# Usage: screenshot [area|full|window]
+# Captures screenshot and copies to clipboard
+
+set -e
+
+MODE="${1:-area}"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+FILENAME="screenshot_$TIMESTAMP.png"
+
+# Create screenshot directory if it doesn't exist
+mkdir -p "$SCREENSHOT_DIR"
+
+case "$MODE" in
+    area)
+        # Select area with slurp and capture with grim
+        GEOMETRY=$(slurp 2>/dev/null) || exit 0
+        grim -g "$GEOMETRY" - | tee "$SCREENSHOT_DIR/$FILENAME" | wl-copy
+        ;;
+    full)
+        # Capture entire screen
+        grim - | tee "$SCREENSHOT_DIR/$FILENAME" | wl-copy
+        ;;
+    window)
+        # Capture active window
+        GEOMETRY=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        if [[ "$GEOMETRY" == "null,null nullxnull" ]]; then
+            notify-send "Screenshot" "No active window found" -u warning
+            exit 1
+        fi
+        grim -g "$GEOMETRY" - | tee "$SCREENSHOT_DIR/$FILENAME" | wl-copy
+        ;;
+    *)
+        echo "Usage: screenshot [area|full|window]"
+        echo ""
+        echo "Modes:"
+        echo "  area   - Select a region to capture (default)"
+        echo "  full   - Capture entire screen"
+        echo "  window - Capture active window"
+        exit 1
+        ;;
+esac
+
+notify-send "Screenshot" "Saved to $FILENAME and copied to clipboard" -i "$SCREENSHOT_DIR/$FILENAME"

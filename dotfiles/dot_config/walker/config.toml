@@ -1,0 +1,21 @@
+# Walker configuration
+
+[main]
+# Available modules: applications, runner, websearch, ssh, switcher, finder, clipboard, custom
+modules = ["applications", "runner", "websearch"]
+placeholder = "Search..."
+show_initial_entries = true
+terminal = "ghostty"
+
+[main.icons]
+theme = "Papirus-Dark"
+size = 24
+
+[main.style]
+layout = "single"
+width = 600
+height = 400
+margins = { top = 200 }
+orientation = "vertical"
+halign = "center"
+content_halign = "fill"

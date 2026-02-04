@@ -1,4 +1,5 @@
-/* Waybar Catppuccin Mocha theme */
+{{- $colors := index .themes .theme.name -}}
+/* Waybar {{ .theme.name }} theme */
 
 * {
     font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
@@ -6,30 +7,30 @@
 }
 
 window#waybar {
-    background-color: rgba(30, 30, 46, 0.9);
-    color: #cdd6f4;
-    border-bottom: 2px solid #89b4fa;
+    background-color: rgba({{ $colors.base_rgb }}, 0.9);
+    color: {{ $colors.text }};
+    border-bottom: 2px solid {{ $colors.blue }};
 }
 
 #workspaces button {
     padding: 0 8px;
-    color: #cdd6f4;
+    color: {{ $colors.text }};
     background: transparent;
     border: none;
     border-radius: 0;
 }
 
 #workspaces button:hover {
-    background: rgba(137, 180, 250, 0.2);
+    background: rgba({{ $colors.blue_rgb }}, 0.2);
 }
 
 #workspaces button.active {
-    background: #89b4fa;
-    color: #1e1e2e;
+    background: {{ $colors.blue }};
+    color: {{ $colors.base }};
 }
 
 #workspaces button.urgent {
-    background: #f38ba8;
+    background: {{ $colors.red }};
 }
 
 #clock,
@@ -44,56 +45,56 @@ window#waybar {
 }
 
 #clock {
-    color: #cba6f7;
+    color: {{ $colors.mauve }};
     font-weight: bold;
 }
 
 #battery {
-    color: #a6e3a1;
+    color: {{ $colors.green }};
 }
 
 #battery.charging {
-    color: #a6e3a1;
+    color: {{ $colors.green }};
 }
 
 #battery.warning:not(.charging) {
-    color: #f9e2af;
+    color: {{ $colors.yellow }};
 }
 
 #battery.critical:not(.charging) {
-    color: #f38ba8;
+    color: {{ $colors.red }};
     animation: blink 0.5s linear infinite alternate;
 }
 
 @keyframes blink {
     to {
-        color: #1e1e2e;
-        background-color: #f38ba8;
+        color: {{ $colors.base }};
+        background-color: {{ $colors.red }};
     }
 }
 
 #cpu {
-    color: #89dceb;
+    color: {{ $colors.sky }};
 }
 
 #memory {
-    color: #f9e2af;
+    color: {{ $colors.yellow }};
 }
 
 #network {
-    color: #94e2d5;
+    color: {{ $colors.teal }};
 }
 
 #network.disconnected {
-    color: #f38ba8;
+    color: {{ $colors.red }};
 }
 
 #pulseaudio {
-    color: #fab387;
+    color: {{ $colors.peach }};
 }
 
 #pulseaudio.muted {
-    color: #6c7086;
+    color: {{ $colors.overlay0 }};
 }
 
 #tray {
@@ -109,6 +110,6 @@ window#waybar {
 }
 
 #window {
-    color: #cdd6f4;
+    color: {{ $colors.text }};
     padding: 0 10px;
 }
