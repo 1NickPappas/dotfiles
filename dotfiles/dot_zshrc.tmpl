@@ -1,5 +1,38 @@
-# Cross-platform zsh config
-export EDITOR=nvim
+# ─────────────────────────────────────────────────────────────
+# History Configuration
+# ─────────────────────────────────────────────────────────────
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt HIST_IGNORE_DUPS       # Don't record duplicate commands
+setopt HIST_IGNORE_SPACE      # Don't record commands starting with space
+setopt SHARE_HISTORY          # Share history between sessions
+setopt APPEND_HISTORY         # Append instead of overwrite
+
+# ─────────────────────────────────────────────────────────────
+# Zsh Options
+# ─────────────────────────────────────────────────────────────
+setopt AUTO_CD                # cd by typing directory name
+setopt CORRECT                # Suggest corrections for typos
+setopt COMPLETE_IN_WORD       # Complete from both ends of cursor
+setopt INTERACTIVE_COMMENTS   # Allow comments in interactive shell
+
+# ─────────────────────────────────────────────────────────────
+# Theme Colors (Catppuccin Mocha - change these for other themes)
+# ─────────────────────────────────────────────────────────────
+# See: https://github.com/catppuccin/catppuccin
+THEME_OVERLAY0="#6c7086"   # Autosuggestion color (subtle gray)
+THEME_SURFACE0="#313244"   # Background accent
+THEME_RED="#f38ba8"        # Errors
+THEME_GREEN="#a6e3a1"      # Success
+THEME_BLUE="#89b4fa"       # Info
+
+# ─────────────────────────────────────────────────────────────
+# Environment
+# ─────────────────────────────────────────────────────────────
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS specific
@@ -9,11 +42,92 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"
 {{ end -}}
 
-# Common
-eval "$(starship init zsh)"
+# ─────────────────────────────────────────────────────────────
+# Vi Mode
+# ─────────────────────────────────────────────────────────────
+bindkey -v                    # Enable vi mode
+export KEYTIMEOUT=1           # Faster mode switching (10ms)
+
+# Change cursor shape for different vi modes
+function zle-keymap-select {
+    case $KEYMAP in
+        vicmd)      echo -ne '\e[2 q' ;;  # Block cursor for normal mode
+        viins|main) echo -ne '\e[6 q' ;;  # Beam cursor for insert mode
+    esac
+}
+zle -N zle-keymap-select
+
+# Start in insert mode with beam cursor
+function zle-line-init {
+    echo -ne '\e[6 q'
+}
+zle -N zle-line-init
+
+# ─────────────────────────────────────────────────────────────
+# Plugins
+# ─────────────────────────────────────────────────────────────
+# Load completions
+autoload -Uz compinit && compinit
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS - Homebrew paths
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+{{ else -}}
+# Linux (Arch) - pacman paths
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+{{ end -}}
+
+# Autosuggestions config
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$THEME_OVERLAY0"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# ─────────────────────────────────────────────────────────────
+# fzf Integration
+# ─────────────────────────────────────────────────────────────
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS - Homebrew fzf
+source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+source $(brew --prefix)/opt/fzf/shell/completion.zsh
+{{ else -}}
+# Linux (Arch) - pacman fzf
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+{{ end -}}
+
+# ─────────────────────────────────────────────────────────────
+# Key Bindings (vi mode compatible)
+# ─────────────────────────────────────────────────────────────
+# History search (works in both insert and normal mode)
+bindkey '^[[A' history-search-backward  # Up arrow
+bindkey '^[[B' history-search-forward   # Down arrow
+bindkey -M vicmd 'k' history-search-backward
+bindkey -M vicmd 'j' history-search-forward
+
+# Accept autosuggestion
+bindkey '^ ' autosuggest-accept         # Ctrl+Space
+bindkey '^f' autosuggest-accept         # Ctrl+f (like in fish)
+
+# Quick escape to normal mode
+bindkey 'jk' vi-cmd-mode                # jk to exit insert mode
+
+# ─────────────────────────────────────────────────────────────
+# Modern CLI Tools
+# ─────────────────────────────────────────────────────────────
+# Initialize zoxide (better cd)
 eval "$(zoxide init zsh)"
 
+# Initialize starship prompt (must be at end)
+eval "$(starship init zsh)"
+
+# ─────────────────────────────────────────────────────────────
 # Aliases
-alias ls='eza'
+# ─────────────────────────────────────────────────────────────
+alias ls='eza --icons'
+alias ll='eza -la --icons'
+alias lt='eza --tree --icons'
 alias cat='bat'
 alias vim='nvim'
+alias grep='rg'
+alias find='fd'
