@@ -1,0 +1,37 @@
+# See https://git-scm.com/docs/git-config
+
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+
+[init]
+    defaultBranch = main          # Modern default (changed from 'master')
+
+[pull]
+    rebase = true                 # Rebase instead of merge on pull
+
+[push]
+    autoSetupRemote = true        # Auto set upstream on first push
+
+[diff]
+    algorithm = histogram         # Clearer diffs on moved/edited lines
+    colorMoved = plain            # Highlight moved blocks in diffs
+    mnemonicPrefix = true         # More intuitive refs in diff output
+
+[commit]
+    verbose = true                # Show diff in commit message template
+
+[column]
+    ui = auto                     # Output in columns when possible
+
+[branch]
+    sort = -committerdate         # Sort branches by most recent commit
+
+[tag]
+    sort = -version:refname       # Sort version tags naturally (v1.0 < v2.0)
+
+[rerere]
+    enabled = true                # Remember conflict resolutions
+    autoupdate = true             # Auto-apply stored resolutions
