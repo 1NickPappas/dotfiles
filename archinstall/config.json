@@ -1,0 +1,141 @@
+{
+    "config_version": "2.8.0",
+    "additional-repositories": [],
+    "archinstall-language": "English",
+    "audio_config": {
+        "audio": "pipewire"
+    },
+    "bootloader": "grub-install",
+    "debug": false,
+    "disk_config": {
+        "config_type": "default_layout",
+        "device_modifications": [
+            {
+                "device": "/dev/nvme0n1",
+                "wipe": true,
+                "partitions": [
+                    {
+                        "btrfs": [],
+                        "flags": [
+                            "Boot",
+                            "ESP"
+                        ],
+                        "fs_type": "fat32",
+                        "mount_options": [],
+                        "mountpoint": "/boot",
+                        "obj_id": "esp",
+                        "size": {
+                            "sector_size": null,
+                            "unit": "MiB",
+                            "value": 512
+                        },
+                        "start": {
+                            "sector_size": null,
+                            "unit": "MiB",
+                            "value": 1
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    },
+                    {
+                        "btrfs": [
+                            {
+                                "mountpoint": "/",
+                                "name": "@"
+                            },
+                            {
+                                "mountpoint": "/home",
+                                "name": "@home"
+                            },
+                            {
+                                "mountpoint": "/.snapshots",
+                                "name": "@snapshots"
+                            },
+                            {
+                                "mountpoint": "/var/log",
+                                "name": "@var_log"
+                            },
+                            {
+                                "mountpoint": "/swap",
+                                "name": "@swap"
+                            }
+                        ],
+                        "flags": [],
+                        "fs_type": "btrfs",
+                        "mount_options": [
+                            "compress=zstd",
+                            "noatime",
+                            "space_cache=v2"
+                        ],
+                        "mountpoint": null,
+                        "obj_id": "root",
+                        "size": {
+                            "sector_size": null,
+                            "unit": "%",
+                            "value": 100
+                        },
+                        "start": {
+                            "sector_size": null,
+                            "unit": "MiB",
+                            "value": 513
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    }
+                ]
+            }
+        ]
+    },
+    "disk_encryption": {
+        "encryption_type": "luks",
+        "partitions": [
+            "root"
+        ],
+        "hsm_device": null,
+        "encryption_password": null
+    },
+    "hostname": "archlinux",
+    "kernels": [
+        "linux"
+    ],
+    "locale_config": {
+        "kb_layout": "us",
+        "sys_enc": "UTF-8",
+        "sys_lang": "en_US.UTF-8"
+    },
+    "mirror_config": {
+        "custom_mirrors": [],
+        "mirror_regions": {
+            "Worldwide": [
+                "https://geo.mirror.pkgbuild.com/$repo/os/$arch"
+            ]
+        }
+    },
+    "network_config": {
+        "type": "nm"
+    },
+    "no_pkg_lookups": false,
+    "ntp": true,
+    "offline": false,
+    "packages": [
+        "base",
+        "linux",
+        "linux-firmware",
+        "btrfs-progs",
+        "grub",
+        "efibootmgr",
+        "networkmanager",
+        "base-devel",
+        "git",
+        "sudo",
+        "vim"
+    ],
+    "parallel_downloads": 5,
+    "profile_config": null,
+    "script": "guided",
+    "silent": false,
+    "swap": true,
+    "timezone": "Europe/Athens",
+    "uki": false,
+    "version": "2.8.0"
+}

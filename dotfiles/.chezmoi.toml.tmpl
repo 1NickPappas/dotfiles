@@ -1,0 +1,8 @@
+[data]
+    os = "{{ .chezmoi.os }}"
+    hostname = "{{ .chezmoi.hostname }}"
+{{- if eq .chezmoi.os "darwin" }}
+    is_mac = true
+{{- else }}
+    is_mac = false
+{{- end }}

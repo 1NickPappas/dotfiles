@@ -1,0 +1,2 @@
+# AUR packages
+visual-studio-code-bin

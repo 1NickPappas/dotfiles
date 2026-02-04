@@ -1,0 +1,10 @@
+# Credentials (contains passwords)
+archinstall/creds.json
+
+# Editor backups
+*~
+*.swp
+*.swo
+
+# OS files
+.DS_Store

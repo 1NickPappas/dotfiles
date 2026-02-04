@@ -1,0 +1,15 @@
+# Essential CLI tools
+zsh
+starship
+fzf
+ripgrep
+fd
+bat
+eza
+zoxide
+tmux
+htop
+neofetch
+unzip
+wget
+curl

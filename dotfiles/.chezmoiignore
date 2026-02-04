@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin" }}
+dot_config/hypr/**
+dot_config/waybar/**
+dot_config/wofi/**
+{{- end }}

@@ -1,0 +1,10 @@
+{
+    "!encryption-password": "YOUR_LUKS_PASSWORD_HERE",
+    "!users": [
+        {
+            "username": "yourusername",
+            "!password": "YOUR_USER_PASSWORD_HERE",
+            "sudo": true
+        }
+    ]
+}
