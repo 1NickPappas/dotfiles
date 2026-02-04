@@ -11,10 +11,13 @@ Run the main bootstrap script after a fresh Arch install:
 ```
 
 This will:
-1. Create a btrfs snapshot for easy rollback
+1. Ask if you want to create a btrfs snapshot (skip after rollback)
 2. Install yay (AUR helper)
 3. Install all packages from package lists
 4. Apply dotfiles using chezmoi
+5. Configure Hyprland to auto-start on boot
+
+After running: reboot → Hyprland starts automatically.
 
 ## Individual Scripts
 
@@ -23,7 +26,8 @@ You can also run scripts individually:
 - `01-snapshot.sh` - Create btrfs snapshot before changes
 - `02-yay.sh` - Install yay AUR helper
 - `03-packages.sh` - Install packages from lists
-- `04-chezmoi.sh` - Initialize and apply dotfiles
+- `04-chezmoi.sh` - Initialize and apply dotfiles, set zsh as default shell
+- `05-hyprland-autostart.sh` - Configure Hyprland to auto-start on tty1
 
 ## Package Lists
 

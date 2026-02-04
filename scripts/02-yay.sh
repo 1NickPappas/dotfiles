@@ -13,6 +13,9 @@ fi
 # Ensure base-devel and git are installed
 sudo pacman -S --needed --noconfirm base-devel git
 
+# Clean up any existing /tmp/yay from failed runs
+rm -rf /tmp/yay 2>/dev/null || true
+
 # Clone and build yay
 echo "Cloning yay from AUR..."
 git clone https://aur.archlinux.org/yay.git /tmp/yay

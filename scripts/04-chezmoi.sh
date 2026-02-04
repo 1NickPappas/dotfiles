@@ -24,3 +24,12 @@ chezmoi apply -v
 echo "Dotfiles applied successfully!"
 echo "Applied configs:"
 chezmoi managed
+
+# Set zsh as default shell (required for .zprofile to work)
+if [ "$SHELL" != "/usr/bin/zsh" ] && command -v zsh &>/dev/null; then
+    echo ""
+    echo "Setting zsh as default shell..."
+    echo "You may be prompted for your password."
+    chsh -s /usr/bin/zsh
+    echo "Shell changed to zsh (will take effect on next login)"
+fi
