@@ -9,3 +9,16 @@ elephant-runner
 
 # Volume/brightness OSD
 swayosd-git
+
+# Browsers
+brave-bin
+google-chrome
+
+# Note-taking
+obsidian
+notion-app-electron
+
+# Communication
+whatsapp-for-linux
+zoom
+spotify

@@ -29,4 +29,13 @@ if [ -n "$AUR_PACKAGES" ]; then
     yay -S --needed --noconfirm $AUR_PACKAGES
 fi
 
+# Post-install: Add user to docker group if docker is installed
+if command -v docker &> /dev/null; then
+    if ! groups "$USER" | grep -q docker; then
+        echo "Adding $USER to docker group..."
+        sudo usermod -aG docker "$USER"
+        echo "NOTE: Log out and back in for docker group to take effect"
+    fi
+fi
+
 echo "All packages installed successfully!"

@@ -17,7 +17,6 @@ hyprsunset
 
 # Terminal & apps
 ghostty
-firefox
 
 # System monitor
 btop
@@ -40,3 +39,17 @@ wf-recorder
 
 # Brightness control
 brightnessctl
+
+# Graphics/Media
+gimp
+inkscape
+vlc
+obs-studio
+
+# Communication
+discord
+telegram-desktop
+
+# Development
+docker
+docker-compose

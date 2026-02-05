@@ -25,6 +25,13 @@ sudo pacman -S chezmoi
 chezmoi init --apply 1NickPappas/dotfiles --source=dotfiles
 ```
 
+**Applying from a local clone:**
+
+```bash
+# If you have the repo cloned locally
+chezmoi apply --source ~/path/to/dotfiles
+```
+
 ---
 
 ## 3. Fresh Arch Install (USB to Desktop)
