@@ -73,7 +73,7 @@
                         "obj_id": "root",
                         "size": {
                             "sector_size": {"unit": "B", "value": 512},
-                            "unit": "%",
+                            "unit": "Percent",
                             "value": 100
                         },
                         "start": {
