@@ -16,6 +16,7 @@
                 "partitions": [
                     {
                         "btrfs": [],
+                        "dev_path": null,
                         "flags": [
                             "Boot",
                             "ESP"
@@ -60,6 +61,7 @@
                                 "name": "@swap"
                             }
                         ],
+                        "dev_path": null,
                         "flags": [],
                         "fs_type": "btrfs",
                         "mount_options": [
