@@ -93,8 +93,7 @@
         "partitions": [
             "root"
         ],
-        "hsm_device": null,
-        "encryption_password": null
+        "hsm_device": null
     },
     "hostname": "speres",
     "kernels": [
