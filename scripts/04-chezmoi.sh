@@ -25,6 +25,9 @@ echo "Dotfiles applied successfully!"
 echo "Applied configs:"
 chezmoi managed
 
+# Enable Walker's elephant service
+systemctl --user enable elephant.service
+
 # Set zsh as default shell (required for .zprofile to work)
 if [ "$SHELL" != "/usr/bin/zsh" ] && command -v zsh &>/dev/null; then
     echo ""

@@ -3,6 +3,7 @@ visual-studio-code-bin
 
 # App launcher (replaces wofi)
 walker-bin
+elephant
 
 # Volume/brightness OSD
 swayosd-git
