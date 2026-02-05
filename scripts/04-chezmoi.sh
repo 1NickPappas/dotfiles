@@ -26,9 +26,9 @@ echo "Applied configs:"
 chezmoi managed
 
 # Enable Walker's elephant service (if installed)
-if systemctl --user list-unit-files elephant.service &>/dev/null; then
+if command -v elephant &>/dev/null; then
     echo "Enabling elephant service for Walker..."
-    systemctl --user enable elephant.service
+    elephant service enable
 fi
 
 # Set zsh as default shell (required for .zprofile to work)
