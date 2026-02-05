@@ -226,6 +226,14 @@ nmcli device wifi connect <SSID> password <password>
 - User must be in `wheel` group
 - Check `/etc/sudoers` includes `%wheel ALL=(ALL:ALL) ALL`
 
+### Chezmoi "config file template has changed" warning
+Clear chezmoi state and reinitialize:
+```bash
+rm -rf ~/.config/chezmoi
+rm -rf ~/.local/share/chezmoi
+chezmoi init --source=~/dotfiles/dotfiles --apply
+```
+
 ## Customization
 
 ### Different Timezone
