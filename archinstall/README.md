@@ -1,5 +1,67 @@
 # archinstall Configuration
 
+Two installation methods:
+- **Manual (Interactive)** - Run `archinstall` and configure via menus
+- **Automated (Config Files)** - Use pre-made config files for repeatable installs
+
+---
+
+## Method 1: Manual Installation (Recommended for First Time)
+
+### 1. Boot from Arch ISO
+
+Download from https://archlinux.org/download/ and boot.
+
+### 2. Connect to Internet
+
+```bash
+# Wired connection should work automatically
+# For WiFi:
+iwctl
+[iwd]# station wlan0 connect <SSID>
+```
+
+### 3. Run archinstall
+
+```bash
+archinstall
+```
+
+### 4. Configure via Menu
+
+| Setting | Recommended |
+|---------|-------------|
+| Mirrors | Select your region |
+| Disk configuration | Select drive, use btrfs, enable encryption |
+| Disk encryption | Set a strong LUKS password |
+| Bootloader | GRUB (for encryption support) |
+| Hostname | Your machine name |
+| Root password | Skip (use sudo instead) |
+| User account | Create user with sudo privileges |
+| Profile | Desktop → KDE or your preference |
+| Audio | **pipewire** (modern) |
+| Kernel | linux (or linux-zen for desktop) |
+| Network | NetworkManager |
+| Timezone | Your timezone |
+
+### 5. Save Configuration (Optional)
+
+Before installing, select **Save configuration** to export:
+- `user_configuration.json` - General config
+- `user_credentials.json` - Encrypted credentials
+
+These are saved to `/var/log/archinstall/` and can be reused for future installs.
+
+### 6. Install
+
+Select **Install** and wait for completion. Reboot when done.
+
+---
+
+## Method 2: Automated Installation (Config Files)
+
+Use pre-made config files for repeatable installs.
+
 ## Files
 
 - `config.json` - Main archinstall configuration
@@ -45,9 +107,14 @@ cp creds.json.example creds.json
 vim creds.json
 ```
 
+**Generate password hash first:**
+```bash
+openssl passwd -6 'YOUR_PASSWORD'
+```
+
 Fill in:
-- `!encryption-password` - LUKS disk encryption password
-- `!users.yourusername.!password` - Your user password
+- `encryption-password` - LUKS disk encryption password (plaintext)
+- `users[].enc_password` - Paste the hash from above
 
 ### 5. Identify Target Disk
 

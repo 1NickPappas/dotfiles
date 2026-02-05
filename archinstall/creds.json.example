@@ -1,9 +1,9 @@
 {
-    "!encryption-password": "YOUR_LUKS_PASSWORD_HERE",
+    "encryption-password": "YOUR_LUKS_PASSWORD_HERE",
     "users": [
         {
             "username": "yourusername",
-            "!password": "YOUR_USER_PASSWORD_HERE",
+            "enc_password": "GENERATE_WITH: openssl passwd -6 'yourpassword'",
             "sudo": true
         }
     ]
