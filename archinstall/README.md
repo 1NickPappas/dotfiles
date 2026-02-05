@@ -56,6 +56,37 @@ These are saved to `/var/log/archinstall/` and can be reused for future installs
 
 Select **Install** and wait for completion. Reboot when done.
 
+### 7. Post-Install Setup
+
+After rebooting into your new system:
+
+```bash
+# Check network connectivity
+ping -c 3 archlinux.org
+
+# If no connection, start NetworkManager
+sudo systemctl enable --now NetworkManager
+
+# For WiFi
+nmcli device wifi list
+nmcli device wifi connect "YourSSID" password "YourPassword"
+```
+
+```bash
+# Install git
+sudo pacman -S git
+
+# Clone dotfiles
+git clone https://github.com/1NickPappas/dotfiles.git
+cd dotfiles/scripts
+
+# Make executable and run bootstrap
+chmod +x *.sh
+./bootstrap.sh
+```
+
+Reboot when complete. You'll have your full desktop environment.
+
 ---
 
 ## Method 2: Automated Installation (Config Files)

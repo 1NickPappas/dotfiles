@@ -12,7 +12,7 @@ eza
 zoxide
 tmux
 htop
-neofetch
+fastfetch
 unzip
 wget
 curl
