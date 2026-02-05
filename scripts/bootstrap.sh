@@ -4,6 +4,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# Security: Remove archinstall credential logs if they exist
+CREDS_LOG="/var/log/archinstall/user_credentials.json"
+if [[ -f "$CREDS_LOG" ]]; then
+    echo "Removing archinstall credential logs..."
+    sudo shred -u "$CREDS_LOG"
+fi
+
 echo "=== Arch Linux Post-Install Bootstrap ==="
 echo ""
 

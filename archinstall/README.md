@@ -26,7 +26,7 @@ iwctl
 Option A - Clone from GitHub:
 ```bash
 pacman -Sy git
-git clone https://github.com/yourusername/arch.git
+git clone https://github.com/1NickPappas/dotfiles.git
 cd arch/archinstall
 ```
 
