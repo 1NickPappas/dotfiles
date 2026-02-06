@@ -22,14 +22,6 @@ if ! sudo -v; then
     exit 1
 fi
 
-# Keep sudo timestamp refreshed throughout bootstrap
-# Pattern from: https://gist.github.com/cowboy/3118588
-while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
-done 2>/dev/null &
-
 echo "Pre-flight checks passed!"
 echo ""
 
