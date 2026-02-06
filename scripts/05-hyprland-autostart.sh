@@ -23,7 +23,7 @@ if ! grep -q "Auto-start Hyprland" "$ZPROFILE"; then
 
 # Auto-start Hyprland on tty1
 if [[ $(tty) = /dev/tty1 ]] && ! pgrep -x Hyprland > /dev/null; then
-    exec start-hyprland
+    exec "$HOME/.local/bin/start-hyprland"
 fi
 EOF
     echo "Hyprland auto-start configured in $ZPROFILE"

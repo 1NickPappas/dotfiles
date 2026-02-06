@@ -28,6 +28,33 @@ echo "Dotfiles applied successfully!"
 echo "Applied configs:"
 chezmoi managed
 
+# Verify critical files were applied
+echo ""
+echo "Verifying critical dotfiles..."
+VERIFY_FAILED=0
+VERIFY_FILES=(
+    "$HOME/.config/hypr/hyprland.conf"
+    "$HOME/.local/bin/start-hyprland"
+    "$HOME/.zshrc"
+)
+for f in "${VERIFY_FILES[@]}"; do
+    if [[ -f "$f" ]]; then
+        echo "  ✓ $f"
+    else
+        echo "  ✗ $f MISSING"
+        VERIFY_FAILED=1
+    fi
+done
+
+if [[ $VERIFY_FAILED -eq 1 ]]; then
+    read -p "Some dotfiles are missing. Continue anyway? [y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborting."
+        exit 1
+    fi
+fi
+
 # Enable Walker's elephant service (if installed)
 if command -v elephant &>/dev/null; then
     echo "Enabling elephant service for Walker..."

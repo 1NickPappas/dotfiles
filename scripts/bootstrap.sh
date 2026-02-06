@@ -49,5 +49,39 @@ fi
 "$SCRIPT_DIR/05-hyprland-autostart.sh"
 
 echo ""
+echo "=== Verification ==="
+
+VERIFY_FAILED=0
+
+# Check critical commands available
+for cmd in chezmoi zsh Hyprland; do
+    if command -v "$cmd" &>/dev/null; then
+        echo "✓ $cmd installed"
+    else
+        echo "✗ $cmd NOT FOUND"
+        VERIFY_FAILED=1
+    fi
+done
+
+# Check critical files
+for f in ~/.local/bin/start-hyprland ~/.config/hypr/hyprland.conf; do
+    if [[ -f "$f" ]]; then
+        echo "✓ $f exists"
+    else
+        echo "✗ $f MISSING"
+        VERIFY_FAILED=1
+    fi
+done
+
+if [[ $VERIFY_FAILED -eq 1 ]]; then
+    read -p "Some checks failed. Continue anyway? [y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborting."
+        exit 1
+    fi
+fi
+
+echo ""
 echo "=== Bootstrap complete! ==="
 echo "Reboot to start Hyprland automatically."

@@ -28,12 +28,14 @@ if ! command -v rustup &> /dev/null && pacman -Qi rust &> /dev/null && grep -q "
     sudo pacman -Rns --noconfirm rust
 fi
 
-# Install AUR packages
+# Install AUR packages (individually to allow partial failures)
 echo "Installing AUR packages..."
 AUR_PACKAGES=$(read_packages "$PACKAGES_DIR/aur.txt")
 
 if [ -n "$AUR_PACKAGES" ]; then
-    yay -S --needed --noconfirm --pgpfetch $AUR_PACKAGES
+    for pkg in $AUR_PACKAGES; do
+        yay -S --needed --noconfirm --pgpfetch "$pkg" || echo "WARNING: Failed to install AUR package: $pkg"
+    done
 fi
 
 # Post-install: Add user to docker group if docker is installed
@@ -68,7 +70,7 @@ if command -v npm &> /dev/null && [ -f "$PACKAGES_DIR/npm-global.txt" ]; then
     NPM_PACKAGES=$(read_packages "$PACKAGES_DIR/npm-global.txt")
     if [ -n "$NPM_PACKAGES" ]; then
         echo "Installing global npm packages..."
-        npm install -g $NPM_PACKAGES
+        npm install -g $NPM_PACKAGES || echo "WARNING: Some npm packages failed to install"
     fi
 fi
 
@@ -76,7 +78,7 @@ if command -v pnpm &> /dev/null && [ -f "$PACKAGES_DIR/pnpm-global.txt" ]; then
     PNPM_PACKAGES=$(read_packages "$PACKAGES_DIR/pnpm-global.txt")
     if [ -n "$PNPM_PACKAGES" ]; then
         echo "Installing global pnpm packages..."
-        pnpm add -g $PNPM_PACKAGES
+        pnpm add -g $PNPM_PACKAGES || echo "WARNING: Some pnpm packages failed to install"
     fi
 fi
 
@@ -84,7 +86,7 @@ if command -v bun &> /dev/null && [ -f "$PACKAGES_DIR/bun-global.txt" ]; then
     BUN_PACKAGES=$(read_packages "$PACKAGES_DIR/bun-global.txt")
     if [ -n "$BUN_PACKAGES" ]; then
         echo "Installing global bun packages..."
-        bun add -g $BUN_PACKAGES
+        bun add -g $BUN_PACKAGES || echo "WARNING: Some bun packages failed to install"
     fi
 fi
 
@@ -92,7 +94,9 @@ if command -v cargo &> /dev/null && [ -f "$PACKAGES_DIR/cargo-global.txt" ]; the
     CARGO_PACKAGES=$(read_packages "$PACKAGES_DIR/cargo-global.txt")
     if [ -n "$CARGO_PACKAGES" ]; then
         echo "Installing cargo packages..."
-        echo "$CARGO_PACKAGES" | tr ' ' '\n' | xargs -n1 cargo install
+        for pkg in $CARGO_PACKAGES; do
+            cargo install "$pkg" || echo "WARNING: Failed to install cargo package: $pkg"
+        done
     fi
 fi
 
@@ -100,7 +104,9 @@ if command -v go &> /dev/null && [ -f "$PACKAGES_DIR/go-global.txt" ]; then
     GO_PACKAGES=$(read_packages "$PACKAGES_DIR/go-global.txt")
     if [ -n "$GO_PACKAGES" ]; then
         echo "Installing go packages..."
-        echo "$GO_PACKAGES" | tr ' ' '\n' | xargs -n1 go install
+        for pkg in $GO_PACKAGES; do
+            go install "$pkg" || echo "WARNING: Failed to install go package: $pkg"
+        done
     fi
 fi
 
