@@ -33,7 +33,7 @@ echo "Installing AUR packages..."
 AUR_PACKAGES=$(read_packages "$PACKAGES_DIR/aur.txt")
 
 if [ -n "$AUR_PACKAGES" ]; then
-    yay -S --needed --noconfirm $AUR_PACKAGES
+    yay -S --needed --noconfirm --pgpfetch $AUR_PACKAGES
 fi
 
 # Post-install: Add user to docker group if docker is installed

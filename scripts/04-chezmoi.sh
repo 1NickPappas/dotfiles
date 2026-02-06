@@ -13,6 +13,9 @@ if ! command -v chezmoi &>/dev/null; then
     sudo pacman -S --needed --noconfirm chezmoi
 fi
 
+# Ensure chezmoi data directory exists
+mkdir -p ~/.local/share/chezmoi
+
 # Initialize chezmoi from local dotfiles directory
 echo "Initializing chezmoi..."
 chezmoi init --source="$DOTFILES_DIR"

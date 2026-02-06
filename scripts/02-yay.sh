@@ -27,5 +27,9 @@ makepkg -si --noconfirm
 # Cleanup
 rm -rf /tmp/yay
 
+# Configure yay to auto-fetch PGP keys for signature verification
+echo "Configuring yay to verify PGP signatures..."
+yay -Y --save --pgpfetch
+
 echo "yay installed successfully!"
 yay --version

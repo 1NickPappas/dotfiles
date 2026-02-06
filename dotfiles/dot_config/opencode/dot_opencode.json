@@ -1,0 +1,12 @@
+{
+  "providers": {
+    "anthropic": {
+      "disabled": false
+    }
+  },
+  "agents": {
+    "coder": {
+      "model": "claude-sonnet-4-20250514"
+    }
+  }
+}

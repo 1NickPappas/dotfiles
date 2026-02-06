@@ -57,6 +57,9 @@ iwctl station wlan0 get-networks
 # Connect to your network
 iwctl --passphrase "YourPassword" station wlan0 connect "YourSSID"
 
+# Or connect by BSSID (if SSID has special characters or is hidden)
+iwctl station wlan0 connect-bssid XX:XX:XX:XX:XX:XX
+
 # Test connection
 ping -c 3 archlinux.org
 ```
