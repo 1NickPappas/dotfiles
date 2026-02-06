@@ -17,3 +17,10 @@ neovim
 unzip
 wget
 curl
+
+# Development - Language toolchains
+go
+lua
+luarocks
+uv
+python-pipx

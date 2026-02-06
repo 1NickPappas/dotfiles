@@ -22,3 +22,7 @@ notion-app-electron
 whatsapp-for-linux
 zoom
 spotify
+
+# Development - Language toolchains
+fnm-bin
+rustup

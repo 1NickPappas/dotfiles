@@ -38,4 +38,20 @@ if command -v docker &> /dev/null; then
     fi
 fi
 
+# Post-install: Initialize language toolchains
+if command -v rustup &> /dev/null; then
+    if ! rustup show active-toolchain &> /dev/null; then
+        echo "Initializing Rust toolchain..."
+        rustup default stable
+        rustup component add rust-analyzer clippy rustfmt rust-src
+    fi
+fi
+
+if command -v fnm &> /dev/null; then
+    echo "Installing Node.js LTS via fnm..."
+    eval "$(fnm env)"
+    fnm install --lts
+    corepack enable
+fi
+
 echo "All packages installed successfully!"
