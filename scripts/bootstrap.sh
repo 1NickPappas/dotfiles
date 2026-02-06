@@ -22,6 +22,14 @@ if ! sudo -v; then
     exit 1
 fi
 
+# Keep sudo timestamp refreshed throughout bootstrap
+# Pattern from: https://gist.github.com/cowboy/3118588
+while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" || exit
+done 2>/dev/null &
+
 echo "Pre-flight checks passed!"
 echo ""
 
@@ -49,38 +57,19 @@ fi
 "$SCRIPT_DIR/05-hyprland-autostart.sh"
 
 echo ""
-echo "=== Verification ==="
-
-VERIFY_FAILED=0
 
 # Check critical commands available
+echo "=== Quick Command Check ==="
 for cmd in chezmoi zsh Hyprland; do
     if command -v "$cmd" &>/dev/null; then
         echo "✓ $cmd installed"
     else
         echo "✗ $cmd NOT FOUND"
-        VERIFY_FAILED=1
     fi
 done
 
-# Check critical files
-for f in ~/.local/bin/start-hyprland ~/.config/hypr/hyprland.conf; do
-    if [[ -f "$f" ]]; then
-        echo "✓ $f exists"
-    else
-        echo "✗ $f MISSING"
-        VERIFY_FAILED=1
-    fi
-done
-
-if [[ $VERIFY_FAILED -eq 1 ]]; then
-    read -p "Some checks failed. Continue anyway? [y/N] " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Aborting."
-        exit 1
-    fi
-fi
+# Run comprehensive dotfiles verification
+"$SCRIPT_DIR/verify-dotfiles.sh"
 
 echo ""
 echo "=== Bootstrap complete! ==="
