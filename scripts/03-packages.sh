@@ -56,7 +56,7 @@ fi
 
 if command -v fnm &> /dev/null; then
     echo "Installing Node.js LTS via fnm..."
-    eval "$(fnm env)"
+    eval "$(fnm env --shell bash)"
     fnm install --lts
     corepack enable
 fi
