@@ -7,12 +7,6 @@ DOTFILES_DIR="$SCRIPT_DIR/../dotfiles"
 
 echo "=== Setting up dotfiles with chezmoi ==="
 
-# Install chezmoi if not present
-if ! command -v chezmoi &>/dev/null; then
-    echo "Installing chezmoi..."
-    sudo pacman -S --needed --noconfirm chezmoi
-fi
-
 # Ensure chezmoi data directory exists
 mkdir -p ~/.local/share/chezmoi
 

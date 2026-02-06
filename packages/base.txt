@@ -35,3 +35,6 @@ lua-language-server
 snapper
 snap-pac
 grub-btrfs
+
+# Dotfiles management
+chezmoi
