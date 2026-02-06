@@ -1,0 +1,16 @@
+#!/bin/bash
+# Start Hyprland with proper environment
+
+# Ensure XDG directories exist
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+# Check if Hyprland config exists
+if [[ ! -f "$XDG_CONFIG_HOME/hypr/hyprland.conf" ]]; then
+    echo "WARNING: Hyprland config not found at $XDG_CONFIG_HOME/hypr/hyprland.conf"
+    echo "Run 'chezmoi apply' to install dotfiles, or press Enter to use defaults"
+    read -r
+fi
+
+exec Hyprland

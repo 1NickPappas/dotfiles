@@ -5,6 +5,13 @@ set -euo pipefail
 
 echo "=== Configuring Hyprland auto-start ==="
 
+# Verify start-hyprland script exists (installed via chezmoi)
+if [[ ! -x "$HOME/.local/bin/start-hyprland" ]]; then
+    echo "WARNING: start-hyprland not found at ~/.local/bin/start-hyprland"
+    echo "Make sure chezmoi has been applied first (chezmoi apply)"
+    echo "Continuing anyway - it will be available after chezmoi apply"
+fi
+
 ZPROFILE="$HOME/.zprofile"
 
 # Create .zprofile if it doesn't exist
