@@ -21,6 +21,13 @@ if [ -n "$OFFICIAL_PACKAGES" ]; then
     sudo pacman -S --needed --noconfirm $OFFICIAL_PACKAGES
 fi
 
+# Pre-install: Remove conflicting packages
+# rustup conflicts with system rust package
+if pacman -Qi rust &> /dev/null && grep -q "rustup" "$PACKAGES_DIR/aur.txt"; then
+    echo "Removing system rust package (conflicts with rustup)..."
+    sudo pacman -Rns --noconfirm rust
+fi
+
 # Install AUR packages
 echo "Installing AUR packages..."
 AUR_PACKAGES=$(read_packages "$PACKAGES_DIR/aur.txt")
