@@ -1,0 +1,2 @@
+# Global pnpm packages
+# Install: cat packages/pnpm-global.txt | grep -v '^#' | xargs pnpm add -g

@@ -1,0 +1,2 @@
+# Cargo packages (Rust)
+# Install: cat packages/cargo-global.txt | grep -v '^#' | xargs -n1 cargo install

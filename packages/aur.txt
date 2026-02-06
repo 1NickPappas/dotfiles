@@ -23,6 +23,11 @@ whatsapp-for-linux
 zoom
 spotify
 
+# Development Tools
+opencode-bin
+
 # Development - Language toolchains
 fnm-bin
 rustup
+bun-bin
+pnpm

@@ -1,0 +1,2 @@
+# Global npm packages
+# Install: cat packages/npm-global.txt | grep -v '^#' | xargs npm install -g

@@ -1,0 +1,2 @@
+# Global bun packages
+# Install: cat packages/bun-global.txt | grep -v '^#' | xargs bun add -g

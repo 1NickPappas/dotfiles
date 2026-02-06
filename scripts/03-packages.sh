@@ -61,4 +61,39 @@ if command -v fnm &> /dev/null; then
     corepack enable
 fi
 
+# Install global packages from package managers
+echo "Installing global packages..."
+
+if command -v npm &> /dev/null && [ -f "$PACKAGES_DIR/npm-global.txt" ]; then
+    NPM_PACKAGES=$(read_packages "$PACKAGES_DIR/npm-global.txt")
+    if [ -n "$NPM_PACKAGES" ]; then
+        echo "Installing global npm packages..."
+        npm install -g $NPM_PACKAGES
+    fi
+fi
+
+if command -v pnpm &> /dev/null && [ -f "$PACKAGES_DIR/pnpm-global.txt" ]; then
+    PNPM_PACKAGES=$(read_packages "$PACKAGES_DIR/pnpm-global.txt")
+    if [ -n "$PNPM_PACKAGES" ]; then
+        echo "Installing global pnpm packages..."
+        pnpm add -g $PNPM_PACKAGES
+    fi
+fi
+
+if command -v bun &> /dev/null && [ -f "$PACKAGES_DIR/bun-global.txt" ]; then
+    BUN_PACKAGES=$(read_packages "$PACKAGES_DIR/bun-global.txt")
+    if [ -n "$BUN_PACKAGES" ]; then
+        echo "Installing global bun packages..."
+        bun add -g $BUN_PACKAGES
+    fi
+fi
+
+if command -v cargo &> /dev/null && [ -f "$PACKAGES_DIR/cargo-global.txt" ]; then
+    CARGO_PACKAGES=$(read_packages "$PACKAGES_DIR/cargo-global.txt")
+    if [ -n "$CARGO_PACKAGES" ]; then
+        echo "Installing cargo packages..."
+        echo "$CARGO_PACKAGES" | tr ' ' '\n' | xargs -n1 cargo install
+    fi
+fi
+
 echo "All packages installed successfully!"
