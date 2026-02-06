@@ -30,3 +30,8 @@ lua-sec
 
 # Development - LSP servers
 lua-language-server
+
+# Btrfs snapshot management
+snapper
+snap-pac
+grub-btrfs
