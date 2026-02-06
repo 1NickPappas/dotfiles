@@ -22,8 +22,8 @@ if [ -n "$OFFICIAL_PACKAGES" ]; then
 fi
 
 # Pre-install: Remove conflicting packages
-# rustup conflicts with system rust package
-if pacman -Qi rust &> /dev/null && grep -q "rustup" "$PACKAGES_DIR/aur.txt"; then
+# rustup conflicts with system rust package (only if rustup not already installed)
+if ! command -v rustup &> /dev/null && pacman -Qi rust &> /dev/null && grep -q "rustup" "$PACKAGES_DIR/aur.txt"; then
     echo "Removing system rust package (conflicts with rustup)..."
     sudo pacman -Rns --noconfirm rust
 fi
