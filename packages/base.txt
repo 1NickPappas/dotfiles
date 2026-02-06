@@ -27,3 +27,6 @@ python-pipx
 cvs
 mercurial
 lua-sec
+
+# Development - LSP servers
+lua-language-server

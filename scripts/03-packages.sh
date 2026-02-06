@@ -96,4 +96,12 @@ if command -v cargo &> /dev/null && [ -f "$PACKAGES_DIR/cargo-global.txt" ]; the
     fi
 fi
 
+if command -v go &> /dev/null && [ -f "$PACKAGES_DIR/go-global.txt" ]; then
+    GO_PACKAGES=$(read_packages "$PACKAGES_DIR/go-global.txt")
+    if [ -n "$GO_PACKAGES" ]; then
+        echo "Installing go packages..."
+        echo "$GO_PACKAGES" | tr ' ' '\n' | xargs -n1 go install
+    fi
+fi
+
 echo "All packages installed successfully!"

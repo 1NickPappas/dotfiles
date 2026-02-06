@@ -1,0 +1,5 @@
+# Go packages
+# Install: cat packages/go-global.txt | grep -v '^#' | xargs -n1 go install
+
+# LSP servers
+golang.org/x/tools/gopls@latest

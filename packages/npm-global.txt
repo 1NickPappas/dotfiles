@@ -1,2 +1,7 @@
 # Global npm packages
 # Install: cat packages/npm-global.txt | grep -v '^#' | xargs npm install -g
+
+# LSP servers
+typescript-language-server
+typescript
+basedpyright
