@@ -24,3 +24,6 @@ lua
 luarocks
 uv
 python-pipx
+cvs
+mercurial
+lua-sec
