@@ -25,6 +25,7 @@ spotify
 
 # Development Tools
 opencode-bin
+lazydocker
 
 # Development - Language toolchains
 fnm-bin

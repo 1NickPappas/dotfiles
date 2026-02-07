@@ -1,0 +1,70 @@
+# lazydocker configuration
+# https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md
+
+gui:
+  # Use mouse for navigation
+  mouseEvents: true
+  # Scroll speed (lines per scroll)
+  scrollHeight: 2
+  # Scroll past bottom of panel
+  scrollPastBottom: true
+  # Show bottom line with keybindings
+  showBottomLine: true
+  # Expand focused side panel to full height
+  expandFocusedSidePanel: false
+  # Screen mode: normal, half, fullscreen
+  screenMode: normal
+  # Side panel width as fraction
+  sidePanelWidth: 0.333
+
+logs:
+  # Show timestamps in logs
+  timestamps: true
+  # Tail logs since this duration
+  since: "60m"
+  # Tail all containers
+  tail: "300"
+
+commandTemplates:
+  # Default docker-compose command
+  dockerCompose: "docker compose"
+  # Restart policy after recreation
+  restartService: "{{ .DockerCompose }} restart {{ .Service.Name }}"
+  # Stop container
+  stopService: "{{ .DockerCompose }} stop {{ .Service.Name }}"
+
+os:
+  # Open command for URLs
+  openCommand: "xdg-open {{filename}}"
+  # Link opening (for URLs in logs)
+  openLink: "xdg-open {{link}}"
+
+stats:
+  # Show all containers (including non-running)
+  showAllContainersLength: 0
+
+# Custom commands accessible via 'x' key
+customCommands:
+  containers:
+    - name: "bash shell"
+      attach: true
+      command: "docker exec -it {{ .Container.ID }} /bin/bash"
+      serviceNames: []
+    - name: "sh shell"
+      attach: true
+      command: "docker exec -it {{ .Container.ID }} /bin/sh"
+      serviceNames: []
+
+# Bulk commands accessible via 'b' key
+bulkCommands:
+  containers:
+    - name: "prune all stopped"
+      command: "docker container prune -f"
+  images:
+    - name: "prune dangling"
+      command: "docker image prune -f"
+    - name: "prune all unused"
+      command: "docker image prune -af"
+  volumes:
+    - name: "prune unused"
+      command: "docker volume prune -f"
