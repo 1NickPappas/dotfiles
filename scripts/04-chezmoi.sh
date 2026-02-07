@@ -101,7 +101,6 @@ fi
 if [ "$SHELL" != "/usr/bin/zsh" ] && command -v zsh &>/dev/null; then
     echo ""
     echo "Setting zsh as default shell..."
-    echo "You may be prompted for your password."
-    chsh -s /usr/bin/zsh
+    sudo chsh -s /usr/bin/zsh "$USER"
     echo "Shell changed to zsh (will take effect on next login)"
 fi

@@ -23,7 +23,7 @@ fi
 
 # Pre-install: Remove conflicting packages
 # rustup conflicts with system rust package (only if rustup not already installed)
-if ! command -v rustup &> /dev/null && pacman -Qi rust &> /dev/null && grep -q "rustup" "$PACKAGES_DIR/aur.txt"; then
+if ! command -v rustup &> /dev/null && pacman -Q rust &> /dev/null && grep -q "rustup" "$PACKAGES_DIR/aur.txt"; then
     echo "Removing system rust package (conflicts with rustup)..."
     sudo pacman -Rns --noconfirm rust
 fi
@@ -60,6 +60,8 @@ if command -v fnm &> /dev/null; then
     echo "Installing Node.js LTS via fnm..."
     eval "$(fnm env --shell bash)"
     fnm install --lts
+    # Re-source fnm env to get the newly installed node in PATH
+    eval "$(fnm env --shell bash)"
     corepack enable
 fi
 
