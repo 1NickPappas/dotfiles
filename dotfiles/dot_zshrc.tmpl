@@ -89,9 +89,13 @@ autoload -Uz compinit && compinit
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {{ else -}}
-# Linux (Arch) - pacman paths
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Linux - Try multiple paths (official repo vs AUR locations differ)
+for p in /usr/share/zsh/plugins/zsh-syntax-highlighting /usr/share/zsh-syntax-highlighting; do
+    [[ -f "$p/zsh-syntax-highlighting.zsh" ]] && { source "$p/zsh-syntax-highlighting.zsh"; break; }
+done
+for p in /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/zsh-autosuggestions; do
+    [[ -f "$p/zsh-autosuggestions.zsh" ]] && { source "$p/zsh-autosuggestions.zsh"; break; }
+done
 {{ end -}}
 
 # Autosuggestions config
@@ -106,9 +110,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
 source $(brew --prefix)/opt/fzf/shell/completion.zsh
 {{ else -}}
-# Linux (Arch) - pacman fzf
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# Linux - fzf (graceful if not installed)
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 {{ end -}}
 
 # ─────────────────────────────────────────────────────────────

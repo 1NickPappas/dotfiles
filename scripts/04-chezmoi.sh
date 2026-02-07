@@ -7,12 +7,54 @@ DOTFILES_DIR="$SCRIPT_DIR/../dotfiles"
 
 echo "=== Setting up dotfiles with chezmoi ==="
 
+# =============================================
+# PRE-FLIGHT VALIDATION
+# =============================================
+
+# 1. Verify chezmoi is installed
+if ! command -v chezmoi &>/dev/null; then
+    echo "ERROR: chezmoi is not installed."
+    echo "This should have been installed by 03-packages.sh"
+    echo "Try: sudo pacman -S chezmoi"
+    exit 1
+fi
+echo "  OK chezmoi is installed"
+
+# 2. Verify DOTFILES_DIR exists
+if [[ ! -d "$DOTFILES_DIR" ]]; then
+    echo "ERROR: Dotfiles directory not found: $DOTFILES_DIR"
+    exit 1
+fi
+echo "  OK Dotfiles directory exists"
+
+# 3. Verify critical source files
+REQUIRED_FILES=(
+    ".chezmoi.toml.tmpl"
+    ".chezmoidata/themes.toml"
+    "dot_zshrc.tmpl"
+)
+for file in "${REQUIRED_FILES[@]}"; do
+    if [[ ! -f "$DOTFILES_DIR/$file" ]]; then
+        echo "ERROR: Required file missing: $DOTFILES_DIR/$file"
+        exit 1
+    fi
+done
+echo "  OK All required source files present"
+
 # Ensure chezmoi data directory exists
 mkdir -p ~/.local/share/chezmoi
 
 # Initialize chezmoi from local dotfiles directory
 echo "Initializing chezmoi..."
 chezmoi init --source="$DOTFILES_DIR"
+
+# Validate templates with dry run
+echo "Validating templates..."
+if ! chezmoi apply --dry-run 2>&1; then
+    echo "ERROR: Template validation failed"
+    echo "Check for missing theme data or template syntax errors"
+    exit 1
+fi
 
 # Apply dotfiles
 echo "Applying dotfiles..."
