@@ -5,11 +5,11 @@ set -euo pipefail
 
 echo "=== Configuring Hyprland auto-start ==="
 
-# Verify start-hyprland script exists (installed via chezmoi)
-if [[ ! -x "$HOME/.local/bin/start-hyprland" ]]; then
-    echo "WARNING: start-hyprland not found at ~/.local/bin/start-hyprland"
-    echo "Make sure chezmoi has been applied first (chezmoi apply)"
-    echo "Continuing anyway - it will be available after chezmoi apply"
+# Verify official start-hyprland exists
+if [[ ! -x "/usr/bin/start-hyprland" ]]; then
+    echo "WARNING: /usr/bin/start-hyprland not found"
+    echo "This is provided by the Hyprland package"
+    echo "Try: sudo pacman -S hyprland"
 fi
 
 ZPROFILE="$HOME/.zprofile"
@@ -23,7 +23,7 @@ if ! grep -q "Auto-start Hyprland" "$ZPROFILE"; then
 
 # Auto-start Hyprland on tty1
 if [[ $(tty) = /dev/tty1 ]] && ! pgrep -x Hyprland > /dev/null; then
-    exec "$HOME/.local/bin/start-hyprland"
+    exec /usr/bin/start-hyprland
 fi
 EOF
     echo "Hyprland auto-start configured in $ZPROFILE"

@@ -29,7 +29,6 @@ CRITICAL_FILES=(
     "$HOME_DIR/.config/hypr/bindings.conf"
     "$HOME_DIR/.config/hypr/autostart.conf"
     "$HOME_DIR/.config/hypr/rules.conf"
-    "$HOME_DIR/.local/bin/start-hyprland"
     "$HOME_DIR/.zshrc"
 )
 
@@ -49,7 +48,6 @@ echo ""
 echo "Checking executable permissions..."
 
 EXECUTABLE_SCRIPTS=(
-    "start-hyprland"
     "screenshot"
     "screenrecord"
     "volume-control"
@@ -118,21 +116,6 @@ if [[ -f "$HOME_DIR/.config/hypr/autostart.conf" ]]; then
         pass "autostart.conf references a notification daemon"
     else
         warn "autostart.conf does not reference a notification daemon (mako/dunst/swaync)"
-    fi
-fi
-
-# Check start-hyprland script
-if [[ -f "$HOME_DIR/.local/bin/start-hyprland" ]]; then
-    if grep -q "XDG_" "$HOME_DIR/.local/bin/start-hyprland" 2>/dev/null; then
-        pass "start-hyprland sets XDG environment variables"
-    else
-        fail "start-hyprland does NOT set XDG environment variables"
-    fi
-
-    if grep -q "Hyprland\|hyprland" "$HOME_DIR/.local/bin/start-hyprland" 2>/dev/null; then
-        pass "start-hyprland executes Hyprland"
-    else
-        fail "start-hyprland does NOT execute Hyprland"
     fi
 fi
 

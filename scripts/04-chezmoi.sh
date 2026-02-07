@@ -70,7 +70,6 @@ echo "Verifying critical dotfiles..."
 VERIFY_FAILED=0
 VERIFY_FILES=(
     "$HOME/.config/hypr/hyprland.conf"
-    "$HOME/.local/bin/start-hyprland"
     "$HOME/.zshrc"
 )
 for f in "${VERIFY_FILES[@]}"; do
