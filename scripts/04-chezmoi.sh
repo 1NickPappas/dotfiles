@@ -46,7 +46,7 @@ mkdir -p ~/.local/share/chezmoi
 
 # Initialize chezmoi from local dotfiles directory
 echo "Initializing chezmoi..."
-chezmoi init --source="$DOTFILES_DIR"
+chezmoi init --source="$DOTFILES_DIR" --force
 
 # Validate templates with dry run
 echo "Validating templates..."
