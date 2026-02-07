@@ -10,15 +10,15 @@ elephant-runner
 # Volume/brightness OSD
 swayosd-git
 
-# Browsers
+# OPTIONAL: Browsers
 brave-bin
 google-chrome
 
-# Note-taking
+# OPTIONAL: Note-taking
 obsidian
 notion-app-electron
 
-# Communication
+# OPTIONAL: Communication
 whatsapp-for-linux
 zoom
 spotify

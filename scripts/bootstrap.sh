@@ -25,6 +25,21 @@ fi
 echo "Pre-flight checks passed!"
 echo ""
 
+# Install mode selection
+echo "Install mode:"
+echo "  1) Full install (all packages)"
+echo "  2) Test install (minimal - skip optional apps)"
+read -p "Choose [1]: " -n 1 -r
+echo
+if [[ $REPLY == "2" ]]; then
+    export INSTALL_MODE="test"
+    echo "Test mode: skipping optional packages"
+else
+    export INSTALL_MODE="full"
+    echo "Full install mode"
+fi
+echo ""
+
 # Security: Remove archinstall credential logs if they exist
 CREDS_LOG="/var/log/archinstall/user_credentials.json"
 if [[ -f "$CREDS_LOG" ]]; then

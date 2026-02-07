@@ -40,13 +40,13 @@ wf-recorder
 # Brightness control
 brightnessctl
 
-# Graphics/Media
+# OPTIONAL: Graphics/Media
 gimp
 inkscape
 vlc
 obs-studio
 
-# Communication
+# OPTIONAL: Communication
 discord
 telegram-desktop
 

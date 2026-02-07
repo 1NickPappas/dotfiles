@@ -8,8 +8,19 @@ PACKAGES_DIR="$SCRIPT_DIR/../packages"
 echo "=== Installing packages ==="
 
 # Function to read package list (strips comments and empty lines)
+# In test mode, skips packages in OPTIONAL sections
 read_packages() {
-    grep -v '^#' "$1" | grep -v '^$' | tr '\n' ' '
+    local file="$1"
+    if [[ "${INSTALL_MODE:-full}" == "test" ]]; then
+        # Skip lines between "# OPTIONAL:" and next non-optional section
+        awk '
+            /^# OPTIONAL:/ { skip=1; next }
+            /^# [^O]/ || /^# $/ { skip=0 }
+            !skip && !/^#/ && !/^$/ { print }
+        ' "$file" | tr '\n' ' '
+    else
+        grep -v '^#' "$file" | grep -v '^$' | tr '\n' ' '
+    fi
 }
 
 # Install from official repos
