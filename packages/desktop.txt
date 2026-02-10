@@ -51,8 +51,8 @@ vlc
 obs-studio
 
 # OPTIONAL: Communication
-discord
-telegram-desktop
+# discord
+# telegram-desktop
 
 # Development
 docker
