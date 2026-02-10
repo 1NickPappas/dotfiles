@@ -1,47 +1,5 @@
-# wiremix - PipeWire TUI mixer configuration
-# https://github.com/tsowell/wiremix
+# overwrites default wiremix configuration
+# defaults: https://github.com/tsowell/wiremix/blob/main/wiremix.toml
 
-# Frame rate limit
-fps = 60.0
-
-# Show peak meters: "off", "mono", or "auto"
-peaks = "auto"
-
-# Enable mouse support
-mouse = true
-
-# Maximum volume percentage
-max_volume_percent = 150.0
-
-# Custom keybindings (vim-style)
-[[keybindings]]
-key = { Char = "k" }
-action = "Up"
-
-[[keybindings]]
-key = { Char = "j" }
-action = "Down"
-
-[[keybindings]]
-key = { Char = "l" }
-action = "VolumeUp"
-
-[[keybindings]]
-key = { Char = "h" }
-action = "VolumeDown"
-
-[[keybindings]]
-key = { Char = "L" }
-action = "VolumeUpFine"
-
-[[keybindings]]
-key = { Char = "H" }
-action = "VolumeDownFine"
-
-[[keybindings]]
-key = { Char = "m" }
-action = "ToggleMute"
-
-[[keybindings]]
-key = { Char = "q" }
-action = "Exit"
+[char_sets.default]
+default_device = "⮞"
