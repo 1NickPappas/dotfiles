@@ -15,33 +15,33 @@ max_volume_percent = 150.0
 
 # Custom keybindings (vim-style)
 [[keybindings]]
-key = "k"
+key = { Char = "k" }
 action = "Up"
 
 [[keybindings]]
-key = "j"
+key = { Char = "j" }
 action = "Down"
 
 [[keybindings]]
-key = "l"
+key = { Char = "l" }
 action = "VolumeUp"
 
 [[keybindings]]
-key = "h"
+key = { Char = "h" }
 action = "VolumeDown"
 
 [[keybindings]]
-key = "L"
+key = { Char = "L" }
 action = "VolumeUpFine"
 
 [[keybindings]]
-key = "H"
+key = { Char = "H" }
 action = "VolumeDownFine"
 
 [[keybindings]]
-key = "m"
+key = { Char = "m" }
 action = "ToggleMute"
 
 [[keybindings]]
-key = "q"
+key = { Char = "q" }
 action = "Exit"
