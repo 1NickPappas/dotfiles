@@ -1,0 +1,23 @@
+# hyprland-preview-share-picker configuration
+# https://github.com/WhySoBad/hyprland-preview-share-picker
+
+# Preview settings
+preview:
+  # Update interval for previews in milliseconds
+  update_interval: 100
+  # Preview quality (1-100)
+  quality: 80
+
+# Window settings
+window:
+  # Window width
+  width: 800
+  # Window height
+  height: 600
+
+# UI settings
+ui:
+  # Show window titles
+  show_titles: true
+  # Show monitor names
+  show_monitors: true

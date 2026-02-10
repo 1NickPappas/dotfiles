@@ -96,6 +96,13 @@ if command -v elephant &>/dev/null; then
     elephant service enable
 fi
 
+# Enable battery monitor timer (if service file exists)
+if [[ -f "$HOME/.config/systemd/user/battery-monitor.timer" ]]; then
+    echo "Enabling battery monitor timer..."
+    systemctl --user daemon-reload
+    systemctl --user enable --now battery-monitor.timer
+fi
+
 # Set zsh as default shell (required for .zprofile to work)
 if [ "$SHELL" != "/usr/bin/zsh" ] && command -v zsh &>/dev/null; then
     echo ""

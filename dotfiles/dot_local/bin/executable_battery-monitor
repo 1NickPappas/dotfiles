@@ -1,0 +1,52 @@
+#!/bin/bash
+# Battery monitor - sends notifications at low battery levels
+# Used with battery-monitor.timer to check every 30 seconds
+
+set -euo pipefail
+
+# Configuration
+WARN_LEVEL=20
+CRITICAL_LEVEL=10
+
+# State file to prevent notification spam
+STATE_FILE="/tmp/battery-monitor-state"
+
+# Find battery
+BATTERY_PATH=""
+for bat in /sys/class/power_supply/BAT*; do
+    if [[ -d "$bat" ]]; then
+        BATTERY_PATH="$bat"
+        break
+    fi
+done
+
+# Exit if no battery found (desktop system)
+if [[ -z "$BATTERY_PATH" ]]; then
+    exit 0
+fi
+
+# Get battery status
+CAPACITY=$(cat "$BATTERY_PATH/capacity")
+STATUS=$(cat "$BATTERY_PATH/status")
+
+# Only warn when discharging
+if [[ "$STATUS" != "Discharging" ]]; then
+    # Clear state when charging
+    rm -f "$STATE_FILE"
+    exit 0
+fi
+
+# Get last notification level
+LAST_LEVEL=""
+if [[ -f "$STATE_FILE" ]]; then
+    LAST_LEVEL=$(cat "$STATE_FILE")
+fi
+
+# Send notifications at thresholds
+if [[ "$CAPACITY" -le "$CRITICAL_LEVEL" && "$LAST_LEVEL" != "critical" ]]; then
+    notify-send -u critical "Battery Critical" "Battery at ${CAPACITY}% - plug in now!"
+    echo "critical" > "$STATE_FILE"
+elif [[ "$CAPACITY" -le "$WARN_LEVEL" && "$CAPACITY" -gt "$CRITICAL_LEVEL" && "$LAST_LEVEL" != "warn" && "$LAST_LEVEL" != "critical" ]]; then
+    notify-send -u normal "Battery Low" "Battery at ${CAPACITY}% - consider plugging in"
+    echo "warn" > "$STATE_FILE"
+fi

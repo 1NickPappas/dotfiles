@@ -1,0 +1,33 @@
+# imv - Image Viewer configuration
+# https://sr.ht/~exec64/imv/
+
+[options]
+# Start in fullscreen mode
+fullscreen = false
+# Loop through images
+loop = true
+# Scale images to fit window
+scaling_mode = shrink
+# Use nearest neighbor scaling for pixel art
+upscaling_method = linear
+
+[binds]
+# Navigation
+<Left> = prev
+<Right> = next
+<Up> = zoom 1
+<Down> = zoom -1
+
+# Actions
+<Ctrl+p> = exec lp -o fit-to-page "$imv_current_file"
+<Ctrl+x> = exec rm "$imv_current_file"; close
+<Ctrl+r> = rotate_by 90
+
+# View controls
+f = fullscreen
+r = reset
+c = center
+
+# Quit
+q = quit
+<Escape> = quit

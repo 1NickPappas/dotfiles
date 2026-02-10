@@ -1,0 +1,7 @@
+[Unit]
+Description=Battery level monitor
+Documentation=https://wiki.archlinux.org/title/Power_management
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/battery-monitor

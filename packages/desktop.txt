@@ -33,12 +33,16 @@ pipewire
 pipewire-pulse
 wireplumber
 pavucontrol
+wiremix
 
 # Screen recording
 wf-recorder
 
 # Brightness control
 brightnessctl
+
+# Image viewer
+imv
 
 # OPTIONAL: Graphics/Media
 gimp

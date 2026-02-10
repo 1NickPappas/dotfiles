@@ -10,6 +10,9 @@ elephant-runner
 # Volume/brightness OSD
 swayosd-git
 
+# Screen share picker with previews
+hyprland-preview-share-picker-git
+
 # OPTIONAL: Browsers
 brave-bin
 google-chrome

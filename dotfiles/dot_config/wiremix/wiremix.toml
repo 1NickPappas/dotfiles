@@ -1,0 +1,26 @@
+# wiremix - PipeWire TUI mixer configuration
+# https://github.com/tsowell/wiremix
+
+[general]
+# Refresh rate in milliseconds
+refresh_rate = 100
+
+[appearance]
+# Show peak meters
+show_peaks = true
+# Show volume in dB
+show_db = true
+
+[keybindings]
+# Navigation
+up = "k"
+down = "j"
+# Volume control
+volume_up = "l"
+volume_down = "h"
+volume_up_fine = "L"
+volume_down_fine = "H"
+# Mute toggle
+mute = "m"
+# Quit
+quit = "q"
